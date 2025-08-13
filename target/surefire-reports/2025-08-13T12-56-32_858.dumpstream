@@ -1,5 +1,0 @@
-# Created at 2025-08-13T12:56:33.026
-Boot Manifest-JAR contains absolute paths in classpath 'E:\SwissRe\org-analyzer\org-analyzer\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-

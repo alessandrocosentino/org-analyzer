@@ -1,0 +1,8 @@
+package com.bigcompany.service;
+import com.bigcompany.model.Employee; import java.util.*; public final class OrgGraph{
+  private OrgGraph(){} private enum Color{WHITE,GRAY,BLACK}
+  public static void validateAcyclic(Map<Integer,Employee> byId){ Map<Integer,Color> color=new HashMap<>(); byId.keySet().forEach(id->color.put(id,Color.WHITE)); for(Employee e: byId.values()){ if(color.get(e.getId())==Color.WHITE) dfs(e,byId,color);} }
+  private static void dfs(Employee e,Map<Integer,Employee> byId,Map<Integer,Color> color){ color.put(e.getId(),Color.GRAY); Integer mId=e.getManagerId(); if(mId!=null){ Color c=color.get(mId); if(c==null) throw new IllegalStateException("Manager id "+mId+" not found for "+e.getId()); if(c==Color.GRAY) throw new IllegalStateException("Cycle detected near "+e.getId()); if(c==Color.WHITE) dfs(byId.get(mId),byId,color);} color.put(e.getId(),Color.BLACK); }
+  public static void validateAllReachCEO(Map<Integer,Employee> byId,Employee ceo){ for(Employee e: byId.values()){ Employee cur=e; while(cur.getManagerId()!=null){ cur=byId.get(cur.getManagerId()); } if(cur!=ceo) throw new IllegalStateException("Employee "+e.getId()+" does not ultimately report to CEO "+ceo.getId()); } }
+  public static int managersBetween(Employee e,Map<Integer,Employee> byId,Employee ceo){ int between=0; Employee cur=e; while(cur.getManagerId()!=null){ Employee mgr=byId.get(cur.getManagerId()); if(mgr==null) throw new IllegalStateException("Manager id "+cur.getManagerId()+" not found for "+cur.getId()); if(mgr==ceo) return between; else { between++; cur=mgr; } } return between; }
+}

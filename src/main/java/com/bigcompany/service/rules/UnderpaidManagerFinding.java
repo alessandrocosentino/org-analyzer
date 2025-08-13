@@ -1,0 +1,1 @@
+package com.bigcompany.service.rules; import com.bigcompany.model.Employee; public record UnderpaidManagerFinding(Employee subject,double avgSubs,double minAllowed,double maxAllowed,double shortBy) implements Finding{ public String rule(){ return "Managers earning LESS than allowed"; } }

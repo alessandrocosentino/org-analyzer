@@ -1,0 +1,5 @@
+package com.bigcompany.service.rules;
+import com.bigcompany.model.Employee; import com.bigcompany.service.OrganizationFactory.Organization; import com.bigcompany.service.OrgGraph; import java.util.*; public final class ReportingLineTooLongRule implements Rule<ReportingLineTooLongFinding>{
+  private final int maxManagersBetween; public ReportingLineTooLongRule(int m){ this.maxManagersBetween=m; } public String name(){ return "ReportingLineTooLongRule"; }
+  public List<ReportingLineTooLongFinding> evaluate(Organization org){ List<ReportingLineTooLongFinding> out=new ArrayList<>(); Map<Integer,Employee> byId=org.byId(); Employee ceo=org.ceo(); for(Employee e: byId.values()){ if(e==ceo) continue; int between=OrgGraph.managersBetween(e,byId,ceo); if(between>maxManagersBetween){ out.add(new ReportingLineTooLongFinding(e, between, between - maxManagersBetween)); } } out.sort(Comparator.comparingInt(a->a.subject().getId())); return out; }
+}

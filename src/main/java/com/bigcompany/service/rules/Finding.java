@@ -1,0 +1,1 @@
+package com.bigcompany.service.rules; import com.bigcompany.model.Employee; public sealed interface Finding permits UnderpaidManagerFinding,OverpaidManagerFinding,ReportingLineTooLongFinding{ Employee subject(); String rule(); }

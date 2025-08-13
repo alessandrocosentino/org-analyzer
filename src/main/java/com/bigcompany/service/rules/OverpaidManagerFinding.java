@@ -1,0 +1,1 @@
+package com.bigcompany.service.rules; import com.bigcompany.model.Employee; public record OverpaidManagerFinding(Employee subject,double avgSubs,double minAllowed,double maxAllowed,double excess) implements Finding{ public String rule(){ return "Managers earning MORE than allowed"; } }

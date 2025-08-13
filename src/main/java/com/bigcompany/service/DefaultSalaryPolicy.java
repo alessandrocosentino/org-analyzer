@@ -1,0 +1,1 @@
+package com.bigcompany.service; public final class DefaultSalaryPolicy implements SalaryPolicy{ private static final double MIN=1.20, MAX=1.50; public double minAllowed(double a){ return Math.round(a*MIN*100.0)/100.0;} public double maxAllowed(double a){ return Math.round(a*MAX*100.0)/100.0;} }

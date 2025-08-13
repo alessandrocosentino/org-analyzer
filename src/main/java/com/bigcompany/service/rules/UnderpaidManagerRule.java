@@ -1,0 +1,6 @@
+package com.bigcompany.service.rules;
+import com.bigcompany.model.Employee; import com.bigcompany.service.OrganizationFactory.Organization; import com.bigcompany.service.SalaryPolicy; import java.util.*; public final class UnderpaidManagerRule implements Rule<UnderpaidManagerFinding>{
+  private final SalaryPolicy salaryPolicy; public UnderpaidManagerRule(SalaryPolicy p){ this.salaryPolicy=p; } public String name(){ return "UnderpaidManagerRule"; }
+  public List<UnderpaidManagerFinding> evaluate(Organization org){ List<UnderpaidManagerFinding> out=new ArrayList<>(); for(Employee m: org.byId().values()){ var subs=m.getDirectReports(); if(m.getManagerId()==null) continue; if(subs.isEmpty()) continue; double avg=avg(subs); double min=salaryPolicy.minAllowed(avg); double max=salaryPolicy.maxAllowed(avg); if(m.getSalary()<min){ out.add(new UnderpaidManagerFinding(m, round2(avg), min, max, round2(min - m.getSalary()))); } } out.sort(Comparator.comparingInt(a->a.subject().getId())); return out; }
+  private static double avg(List<Employee> subs){ double s=0.0; for(Employee e: subs) s+=e.getSalary(); return s/subs.size(); } private static double round2(double v){ return Math.round(v*100.0)/100.0; }
+}

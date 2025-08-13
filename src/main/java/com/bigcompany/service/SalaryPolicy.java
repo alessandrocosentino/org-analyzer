@@ -1,0 +1,1 @@
+package com.bigcompany.service; public interface SalaryPolicy{ double minAllowed(double avg); double maxAllowed(double avg);}

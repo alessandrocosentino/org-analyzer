@@ -1,0 +1,1 @@
+package com.bigcompany.service.rules; import com.bigcompany.model.Employee; public record ReportingLineTooLongFinding(Employee subject,int betweenCount,int excess) implements Finding{ public String rule(){ return "Reporting lines too long"; } }

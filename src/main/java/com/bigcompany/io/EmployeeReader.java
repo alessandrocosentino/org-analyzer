@@ -1,0 +1,2 @@
+package com.bigcompany.io;
+import com.bigcompany.model.Employee; import java.io.*; import java.nio.file.*; import java.util.*; public interface EmployeeReader{ List<Employee> read(Path csv) throws IOException; }

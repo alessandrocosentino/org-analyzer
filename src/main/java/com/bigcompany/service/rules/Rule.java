@@ -1,0 +1,1 @@
+package com.bigcompany.service.rules; import com.bigcompany.service.OrganizationFactory.Organization; import java.util.*; public interface Rule<F extends Finding>{ String name(); List<F> evaluate(Organization org);}

@@ -55,3 +55,39 @@ java -jar target/org-analyzer-1.0.0.jar src/main/resources/employees.sample.csv
 
 ## Tests
 JUnit 5 tests at `src/test/java/com/bigcompany/OrgAnalyzerRuleEngineTest.java` validate parsing, boundary conditions, and long-chain detection.
+
+## Possible Improvements
+
+- **Configurable max-between threshold**  
+  Currently, the maximum allowed number of managers between an employee and the CEO is fixed at **4**, as required by the original specification.  
+  For additional flexibility, this value could be made configurable via a CLI parameter (e.g. `--max-between=6`) without breaking existing behavior (default would remain `4`).  
+  This would allow the same codebase to be reused in scenarios where the company policy changes without requiring a new deployment.
+
+- **Configurable salary thresholds**  
+  The 20% minimum and 50% maximum salary margins for managers are currently fixed in code.  
+  Making these values configurable via CLI or configuration file would enable easy adaptation to policy changes.
+
+- **Alternative output formats**  
+  In addition to the current console output, the application could support output in formats such as JSON or CSV for easier integration with reporting tools or dashboards.
+
+- **Internationalization (i18n)**  
+  Messages and outputs are currently in English.  
+  Support for multiple languages could be added by externalizing message strings to resource bundles.
+
+- **Unit test coverage expansion**  
+  Additional test cases could cover:
+  - Managers exactly at the threshold limits (1.20× and 1.50× average subordinate salary)
+  - Employees exactly at the max-between boundary
+  - Input file with disconnected employees or multiple CEOs (invalid cases)
+
+- **Error handling and validation improvements**  
+  The current implementation validates CEO count, connectivity, and cycles.  
+  Additional checks could include:
+  - Duplicate IDs
+  - Negative or zero salaries
+  - Missing referenced managers
+
+- **Performance optimizations**  
+  The current implementation is efficient for up to 1000 employees as per specification.  
+  If scaling to much larger datasets is required, algorithms and data structures could be revisited (e.g., parallel processing for rule evaluation).
+

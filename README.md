@@ -1,5 +1,4 @@
 # Organization Analyzer (Java 17, Maven, Strategy Rules)
-![CI](https://github.com/alessandrocosentino/org-analyzer/actions/workflows/ci.yml/badge.svg)
 ![Java 17](https://img.shields.io/badge/Java-17-007396?logo=java)
 
 A CLI that analyzes an organization structure from a CSV and reports:
